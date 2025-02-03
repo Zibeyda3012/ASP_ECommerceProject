@@ -1,8 +1,10 @@
 using ECommerce.Application.Abstract;
+using ECommerce.Application.Abstracts;
 using ECommerce.Application.Concrete;
 using ECommerce.DataAccess.Abstact;
 using ECommerce.DataAccess.Concerete.EFEntityFramework;
 using ECommerce.DataAccess.Context;
+using ECommerce.WebUI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +18,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductDal,EFProductDal>();
 builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
-
+builder.Services.AddSingleton<ICartSessionService,CartSessionService>();
+builder.Services.AddScoped<ICartService,CartService>();  
 
 #region Database registration
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
